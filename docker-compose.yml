@@ -1,0 +1,32 @@
+services:
+  app:
+    image: ghcr.io/mamura/php82-node16:latest
+    container_name: upd8
+    labels:
+      - "traefik.enable=true"
+    volumes:
+      - ./src:/src
+    environment:
+      - PROJECT_WEBROOT=/src/public
+
+  mysql:
+    image: mysql:8.0
+    container_name: upd8-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: upd8
+      MYSQL_USER: upd8
+      MYSQL_PASSWORD: upd8
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+networks:
+  default:
+      name: mamura_network
+      external: true
