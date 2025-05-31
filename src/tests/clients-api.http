@@ -1,0 +1,73 @@
+### Listar todas as cidades
+GET http://upd8.mamura.test/api/cities
+Accept: application/json
+###
+
+### Criar nova Cidade
+POST http://upd8.mamura.test/api/cities
+Content-Type:  application/json
+
+{
+    "name": "Itapipoca"
+}   
+###
+
+### Listar todos os representantes 
+GET http://upd8.mamura.test/api/representatives
+Content-Type: application/json
+##
+
+### Criar represntante com cidades associoadas
+POST http://upd8.mamura.test/api/representatives
+Content-Type: application/json
+
+{
+    "name": "Antônio Parente"
+    "cities": [2,4]
+}
+###
+
+### Listar todos os clientes
+GET http://upd8.mamura.test/api/clients
+Accept: application/json
+###
+
+### Criar novo cliente
+POST http://upd8.mamura.test/api/clients
+Accept: application/json
+
+{
+    "name": "Posto São Domingos"
+    "city_id": 2
+}
+###
+
+### Buscar representante por ID
+GET http://upd8.mamura.test/api/representatives/1
+Accept: application/json
+###
+
+### Atualizar cliente
+PUT http://upd8.mamura.test/api/clients/1
+Accept: application/json
+
+{
+    "name" : "Adolfo Menescal"
+    "city_id": 1
+}
+###
+
+### Deletar representante
+DELETE http://upd8.mamura.test/api/representatives/1
+Accept: application/json
+###
+
+### Obter representantes que atendem um cliente
+GET http://upd8.mamura.test/api/representatives/by-client/1
+Accept: application/json
+###
+
+### Obter representantes por cidade
+GET http://upd8.mamura.test/api/representatives/by-city/3
+Accept: application/application/json
+###
