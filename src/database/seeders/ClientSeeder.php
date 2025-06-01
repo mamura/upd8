@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use App\Models\Client;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 class ClientSeeder extends Seeder
@@ -13,12 +14,19 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        Client::insert([
-            ['name' => 'Osborn Corp', 'city_id' => 1],
-            ['name' => 'Google', 'city_id' => 2],
-            ['name' => 'Upd8', 'city_id' => 3],
-            ['name' => 'Mercantil Dois Irmões', 'city_id' => 4],
-            ['name' => 'Dragon Bar', 'city_id' => 5]
-        ]);
+        $faker = Faker::create('pt_BR');
+        $cities = City::all();
+
+        for ($i = 0; $i < 10; $i++) {
+            Client::create([
+                'name'      => $faker->name,
+                'cpf'       => $faker->numerify('###.###.###-##'),
+                'birthdate' => $faker->date('Y-m-d'),
+                'gender'    => $faker->randomElement(['Masculino', 'Feminino']),
+                'address'   => $faker->streetAddress(),
+                'state'     => $faker->state(),
+                'city_id'   => $cities->random()->id,
+            ]);
+        }
     }
 }

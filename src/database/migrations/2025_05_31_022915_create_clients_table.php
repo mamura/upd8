@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('cpf');
+            $table->date('birthdate')->nullable();
+            $table->enum('gender', ['Masculino', 'Feminino'])->nullable();
+            $table->string('address')->nullable();
+            $table->string('state')->nullable();
             $table->foreignId('city_id')->constrained()->onDelete('cascade');
             $table->foreignId('representative_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
