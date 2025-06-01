@@ -10,15 +10,29 @@ use Illuminate\Http\Request;
 
 class RepresentativeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Representative::with('cities')->get();
+        $query = Representative::with(['cities', 'clients']);
+
+        if ($request->filled('city_id')) {
+            $query->whereHas('cities', fn($q) =>
+                $q->where('cities.id', $request->city_id)
+            );
+        }
+
+        if ($request->filled('client_id')) {
+            $query->whereHas('clients', fn($q) =>
+                $q->where('clients.id', $request->client_id)
+            );
+        }
+
+        return $query->get();
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'requided|string'
+            'name' => 'required|string'
         ]);
         $rep = Representative::create($data);
 
@@ -37,7 +51,7 @@ class RepresentativeController extends Controller
     public function update(Request $request, Representative $representative)
     {
         $data = $request->validate([
-            'name' => 'requided|string'
+            'name' => 'required|string'
         ]);
         $representative->update($data);
 

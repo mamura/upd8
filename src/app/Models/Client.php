@@ -12,4 +12,9 @@ class Client extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function representative()
+    {
+        return $this->belongsTo(Representative::class);
+    }
 }

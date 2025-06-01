@@ -12,4 +12,9 @@ class Representative extends Model
     {
         return $this->belongsToMany(City::class);
     }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
 }
